@@ -18,6 +18,7 @@ router.get('/',function(request,response){
 router.get('/:id',function(request, response){
     book.getOneBook(request.params.id,function(err,result){
         if(err){
+            console.log(err);
             response.json(err.errno);
         }
         else{
@@ -27,17 +28,45 @@ router.get('/:id',function(request, response){
 });
 
 router.post('/',function(request,response){
-    book.addBook(request.body,function(result){
-        response.json(result);
+    book.addBook(request.body,function(err,result){
+        if(err){
+            console.log(err);
+            response.json(err.errno);
+        }
+        else{
+            response.json(result);
+        }
     });
 });
 
 router.put('/:id',function(request, response){
-    response.json("Päivitetään kirja jonka id="+request.params.id);
+    book.updateBook(request.body, request.params.id, function(err, result){
+        if(err){
+            console.log(err);
+            response.json(err.errno);
+        }
+        else {
+            console.log(result.affectedRows);
+            if(result.affectedRows==1){
+                response.send(1)
+            }
+            else {
+                response.send(0);
+            }
+        }
+    });
 });
 
 router.delete('/:id',function(request,response){
-    response.json("Poistetaan kirja, jonka id="+request.params.id);
+    book.deleteBook(request.params.id, function(err, result){
+        if(err){
+            console.log(err);
+            response.json(err.errno); 
+        }
+        else{
+            response.json(result);
+        }
+    });
 });
 
 module.exports=router
