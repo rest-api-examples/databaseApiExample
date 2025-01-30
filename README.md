@@ -26,4 +26,7 @@ We will use the staticApiExample as a base and modify the application so that da
 
 We will use a database named library and create a user account with the following SQL commands:
 
-<pre> CREATE USER 'netuser'@'localhost' IDENTIFIED BY 'netpass'; GRANT ALL ON library.* TO 'netuser'@'localhost'; </pre>
+<pre> 
+CREATE USER 'netuser'@'localhost' IDENTIFIED BY 'netpass'; 
+GRANT ALL ON library.* TO 'netuser'@'localhost'; 
+</pre>
